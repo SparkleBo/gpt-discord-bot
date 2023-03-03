@@ -48,7 +48,7 @@ async def generate_completion_response(
             convo=Conversation(messages + [Message(MY_BOT_NAME)]),
         )
         rendered = prompt.render()
-        message_list = [{'role': 'user' if m.user != 'GPTTest' else 'system', 'content': m.text} for m in messages]
+        message_list = [{'role': 'user' if m.user != 'GPTTest' else 'assistant', 'content': m.text} for m in messages]
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=message_list,
