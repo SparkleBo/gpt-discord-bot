@@ -48,7 +48,8 @@ async def generate_completion_response(
             convo=Conversation(messages + [Message(MY_BOT_NAME)]),
         )
         rendered = prompt.render()
-        message_list = [{'role': 'user' if m.user != 'GPTTest' else 'assistant', 'content': m.text} for m in messages]
+        message_list = [{'role': 'system', 'content': 'You are ChatGPT, a large language model trained on a variety of conversation datasets. You are chatting with a human in a text-based chat interface. Try to have a natural conversation with the human, and don\'t use the same response twice. Follow the user\'s instructions carefully'}]
+        message_list.extend([{'role': 'user' if m.user != 'GPTTest' else 'assistant', 'content': m.text} for m in messages])
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=message_list,
